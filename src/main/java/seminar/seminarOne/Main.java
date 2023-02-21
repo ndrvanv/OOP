@@ -32,7 +32,7 @@ public class Main {
         Human p6 = new Human("Vlada", "Samarova", 42, Gender.female, "34 St. River");
         Human p7 = new Human("Lida", "Antonova", 29, Gender.female, "65 Luis Leaf");
         Human p8 = new Human("Viktor", "Antonov", 31, Gender.male, "65 Luis Leaf");
-        Collections.addAll(listHuman, p1, p2, p3, p4, p5, p6, p7, p8);
+        Collections.addAll(listHuman, p1, p2, p3, p4, p5, Human p8);
 
         ArrayList<Child>listChild = new ArrayList<>();
         Child ch1 = new Child("Oleg", "Petrov", 2, Gender.male, "Wall Street 27");
@@ -57,8 +57,8 @@ public class Main {
 
 //        Восстановление из файла с помощью класса ObjectInputStream // TODO
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("addressPerson.out"));
-        ArrayList<Address> restoredHuman = (ArrayList<Address>) objectInputStream.readObject();
-        ArrayList<Address> restoredChild = (ArrayList<Address>) objectInputStream.readObject();
+        ArrayList<Human> restoredHuman = (ArrayList<Human>) objectInputStream.readObject();
+        ArrayList<Human> restoredChild = (ArrayList<Human>) objectInputStream.readObject();
         objectInputStream.close();
 
 //       Серилизация с помощью класса ByteArrayOutputStream
@@ -70,8 +70,8 @@ public class Main {
 
 //      Восстановление с помощью класса ByteArrayInputStream // TODO
         ObjectInputStream objectInputStream2 = new ObjectInputStream(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
-        ArrayList<Address> listenHumanRestoredFromByte = (ArrayList<Address>) objectInputStream2.readObject();
-        ArrayList<Address> listenChildrenRestoredFromByte = (ArrayList<Address>) objectInputStream2.readObject();
+        ArrayList<Human> listenHumanRestoredFromByte = (ArrayList<Human>) objectInputStream2.readObject();
+        ArrayList<Human> listenChildrenRestoredFromByte = (ArrayList<Human>) objectInputStream2.readObject();
         objectInputStream2.close();
 
         System.out.println("Before Serialize: " + "\n" + listHuman + "\n" + listChild);
