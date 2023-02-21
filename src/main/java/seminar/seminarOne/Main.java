@@ -1,6 +1,9 @@
 package seminar.seminarOne;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
+
 /*
 Реализовать, с учетом ооп подхода, приложение Для проведения исследований с генеалогическим древом.
 Идея: описать некоторое количество компонент, например: модель человека компонента хранения связей
@@ -19,36 +22,60 @@ import java.util.Collections;
 У задач нет единственного правильного решения
  */
 public class Main {
-    public static void main(String[] args) {
-        ArrayList<Human> listHuman = new ArrayList<>();
-        Human p1 = new Human("Anna", "Ivanova", 23, Gender.female);
-        Human p2 = new Human("Vladimir", "Ivanov", 24, Gender.male);
-        Human p3 = new Human("Nikolai", "Petrov", 36, Gender.male);
-        Human p4 = new Human("Vera", "Petrova", 33, Gender.female);
-        Human p5 = new Human("Vlad", "Samarov", 41, Gender.male);
-        Human p6 = new Human("Vlada", "Samarova", 42, Gender.female);
-        Human p7 = new Human("Lida", "Antonova", 29, Gender.female);
-        Human p8 = new Human("Viktor", "Antonov", 31, Gender.male);
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ArrayList<Address> listHuman = new ArrayList<>();
+        Human p1 = new Human("Anna", "Ivanova", 23, Gender.female, "qwerty 1");
+        Human p2 = new Human("Vladimir", "Ivanov", 24, Gender.male, "qwerty 1");
+        Human p3 = new Human("Nikolai", "Petrov", 36, Gender.male, "Wall Street 27");
+        Human p4 = new Human("Vera", "Petrova", 33, Gender.female, "Wall Street 27");
+        Human p5 = new Human("Vlad", "Samarov", 41, Gender.male, "34 St. River");
+        Human p6 = new Human("Vlada", "Samarova", 42, Gender.female, "34 St. River");
+        Human p7 = new Human("Lida", "Antonova", 29, Gender.female, "65 Luis Leaf");
+        Human p8 = new Human("Viktor", "Antonov", 31, Gender.male, "65 Luis Leaf");
         Collections.addAll(listHuman, p1, p2, p3, p4, p5, p6, p7, p8);
-//        System.out.println(listHuman);
 
         ArrayList<Child>listChild = new ArrayList<>();
-        Child ch1 = new Child("Oleg", "Petrov", 2, Gender.male);
-        Child ch2 = new Child("Maria", "Petrova", 1, Gender.female);
-        Child ch3 = new Child("Jenya", "Ivanova", 1, Gender.female);
-        Child ch4 = new Child("Hanna", "Samarova", 10, Gender.female);
+        Child ch1 = new Child("Oleg", "Petrov", 2, Gender.male, "Wall Street 27");
+        Child ch2 = new Child("Maria", "Petrova", 1, Gender.female, "Wall Street 27");
+        Child ch3 = new Child("Jenya", "Ivanova", 1, Gender.female, "qwerty 1");
+        Child ch4 = new Child("Hanna", "Samarova", 10, Gender.female, "34 St. River");
         Collections.addAll(listChild, ch1, ch2, ch3, ch4);
-//        System.out.println(listChild);
 
         Family family = new Family(listHuman);
         family.addHuman(ch1);
-
         family.setHumans(listHuman);
         p1.addChild(ch3);
         p2.addChild(ch3);
         p3.addChild(ch1);
-//        p4.getChild(ch1); // Добавление второго ребенка...
+        System.out.println(family.printHuman("Ivanova"));
 
-        System.out.println(family.printHuman("Ivanova")); //Печать Фамилий
+//        Серилизация в файл с помощью класса ObjectOutStream
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("addressPerson.out"));
+        objectOutputStream.writeObject(listHuman);
+        objectOutputStream.writeObject(listChild);
+        objectOutputStream.close();
+
+//        Восстановление из файла с помощью класса ObjectInputStream // TODO
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("addressPerson.out"));
+        ArrayList<Address> restoredHuman = (ArrayList<Address>) objectInputStream.readObject();
+        ArrayList<Address> restoredChild = (ArrayList<Address>) objectInputStream.readObject();
+        objectInputStream.close();
+
+//       Серилизация с помощью класса ByteArrayOutputStream
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream2 = new ObjectOutputStream(byteArrayOutputStream);
+        objectOutputStream2.writeObject(listHuman);
+        objectOutputStream2.writeObject(listChild);
+        objectOutputStream2.flush();
+
+//      Восстановление с помощью класса ByteArrayInputStream // TODO
+        ObjectInputStream objectInputStream2 = new ObjectInputStream(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+        ArrayList<Address> listenHumanRestoredFromByte = (ArrayList<Address>) objectInputStream2.readObject();
+        ArrayList<Address> listenChildrenRestoredFromByte = (ArrayList<Address>) objectInputStream2.readObject();
+        objectInputStream2.close();
+
+        System.out.println("Before Serialize: " + "\n" + listHuman + "\n" + listChild);
+        System.out.println("After Restored From Byte: " + "\n" + listenHumanRestoredFromByte + "\n" + listenChildrenRestoredFromByte);
+        System.out.println("After Restorted" + "\n" + restoredHuman + "\n" + restoredChild);
     }
 }

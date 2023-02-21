@@ -1,21 +1,21 @@
 package seminar.seminarOne;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class Family {
-    ArrayList<Human> humans;
+public class Family implements Serializable {
+    ArrayList<Address> humans;
     ArrayList<Family> families;
-    public Family(ArrayList<Human> humans) {
+    public Family(ArrayList<Address> humans) {
         this.humans = humans;
     }
 
-    public ArrayList<Human> getHumans() {
+    public ArrayList<Address> getHumans() {
         return humans;
     }
-    public void setHumans(ArrayList<Human> humans) {
+    public void setHumans(ArrayList<Address> humans) {
         this.humans = humans;
     }
-    public ArrayList<Human> addHuman(Human human) {
+    public ArrayList<Address> addHuman(Human human) {
         if (!humans.contains(human)) {
             humans.add(human);
             if (human.getMother() != null) {
