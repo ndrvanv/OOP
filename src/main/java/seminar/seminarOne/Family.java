@@ -3,29 +3,32 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Family implements Serializable {
-    ArrayList<Address> humans;
-    ArrayList<Family> families;
-    public Family(ArrayList<Address> humans) {
-        this.humans = humans;
+    private Children children;
+    private Parents mother;
+    private Parents father;
+    ArrayList<Human> humans;
+    ArrayList<Parents> families;
+    public Family(ArrayList<Human> parents) {
+        this.humans = parents;
     }
-
-    public ArrayList<Address> getHumans() {
+    public ArrayList<Human> getHumans() {
         return humans;
     }
-    public void setHumans(ArrayList<Address> humans) {
-        this.humans = humans;
+    public void setHumans(ArrayList<Human> families) {
+        this.humans = families;
     }
-    public ArrayList<Address> addHuman(Human human) {
-        if (!humans.contains(human)) {
-            humans.add(human);
-            if (human.getMother() != null) {
-                human.getMother().addChild(human);
+    public ArrayList<Parents> addHuman(ArrayList<Children> ch) {
+        for(Human child  : families)
+        if (!families.contains(child)) {
+//            families.add(ch);
+            if (mother.getMother() != null) {
+                mother.addChild((Children) child);
             }
-            if (human.getFather() != null) {
-                human.getFather().addChild(human);
+            if (father.getFather() != null) {
+                father.addChild((Children) child);
             }
         }
-        return humans;
+        return families;
     }
     public ArrayList<Human> printHuman(String lastName) {
         for (Human o: humans) {

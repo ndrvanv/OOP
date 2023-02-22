@@ -2,7 +2,6 @@ package seminar.seminarOne;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 /*
 Реализовать, с учетом ооп подхода, приложение Для проведения исследований с генеалогическим древом.
@@ -23,27 +22,27 @@ import java.util.Objects;
  */
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ArrayList<Address> listHuman = new ArrayList<>();
-        Human p1 = new Human("Anna", "Ivanova", 23, Gender.female, "qwerty 1");
-        Human p2 = new Human("Vladimir", "Ivanov", 24, Gender.male, "qwerty 1");
-        Human p3 = new Human("Nikolai", "Petrov", 36, Gender.male, "Wall Street 27");
-        Human p4 = new Human("Vera", "Petrova", 33, Gender.female, "Wall Street 27");
-        Human p5 = new Human("Vlad", "Samarov", 41, Gender.male, "34 St. River");
-        Human p6 = new Human("Vlada", "Samarova", 42, Gender.female, "34 St. River");
-        Human p7 = new Human("Lida", "Antonova", 29, Gender.female, "65 Luis Leaf");
-        Human p8 = new Human("Viktor", "Antonov", 31, Gender.male, "65 Luis Leaf");
-        Collections.addAll(listHuman, p1, p2, p3, p4, p5, Human p8);
+        ArrayList<Human> listParent = new ArrayList<>();
+        Parents p1 = new Parents("Anna", "Ivanova", 23, Gender.female);
+        Parents p2 = new Parents("Vladimir", "Ivanov", 24, Gender.male);
+        Parents p3 = new Parents("Nikolai", "Petrov", 36, Gender.male);
+        Parents p4 = new Parents("Vera", "Petrova", 33, Gender.female);
+        Parents p5 = new Parents("Vlad", "Samarov", 41, Gender.male);
+        Parents p6 = new Parents("Vlada", "Samarova", 42, Gender.female);
+        Parents p7 = new Parents("Lida", "Antonova", 29, Gender.female);
+        Parents p8 = new Parents("Viktor", "Antonov", 31, Gender.male);
+        Collections.addAll(listParent, p1, p2, p3, p4, p5, p6, p7, p8);
 
-        ArrayList<Child>listChild = new ArrayList<>();
-        Child ch1 = new Child("Oleg", "Petrov", 2, Gender.male, "Wall Street 27");
-        Child ch2 = new Child("Maria", "Petrova", 1, Gender.female, "Wall Street 27");
-        Child ch3 = new Child("Jenya", "Ivanova", 1, Gender.female, "qwerty 1");
-        Child ch4 = new Child("Hanna", "Samarova", 10, Gender.female, "34 St. River");
+        ArrayList<Children>listChild = new ArrayList<>();
+        Children ch1 = new Children("Oleg", "Petrov", 2, Gender.male);
+        Children ch2 = new Children("Maria", "Petrova", 1, Gender.female);
+        Children ch3 = new Children("Jenya", "Ivanova", 1, Gender.female);
+        Children ch4 = new Children("Hanna", "Samarova", 10, Gender.female);
         Collections.addAll(listChild, ch1, ch2, ch3, ch4);
 
-        Family family = new Family(listHuman);
-        family.addHuman(ch1);
-        family.setHumans(listHuman);
+        Family family = new Family(listParent);
+        family.addHuman(listChild);
+        family.setHumans(listParent);
         p1.addChild(ch3);
         p2.addChild(ch3);
         p3.addChild(ch1);
@@ -51,7 +50,7 @@ public class Main {
 
 //        Серилизация в файл с помощью класса ObjectOutStream
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("addressPerson.out"));
-        objectOutputStream.writeObject(listHuman);
+        objectOutputStream.writeObject(listParent);
         objectOutputStream.writeObject(listChild);
         objectOutputStream.close();
 
@@ -64,7 +63,7 @@ public class Main {
 //       Серилизация с помощью класса ByteArrayOutputStream
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream2 = new ObjectOutputStream(byteArrayOutputStream);
-        objectOutputStream2.writeObject(listHuman);
+        objectOutputStream2.writeObject(listParent);
         objectOutputStream2.writeObject(listChild);
         objectOutputStream2.flush();
 
@@ -74,7 +73,7 @@ public class Main {
         ArrayList<Human> listenChildrenRestoredFromByte = (ArrayList<Human>) objectInputStream2.readObject();
         objectInputStream2.close();
 
-        System.out.println("Before Serialize: " + "\n" + listHuman + "\n" + listChild);
+        System.out.println("Before Serialize: " + "\n" + listParent + "\n" + listChild);
         System.out.println("After Restored From Byte: " + "\n" + listenHumanRestoredFromByte + "\n" + listenChildrenRestoredFromByte);
         System.out.println("After Restorted" + "\n" + restoredHuman + "\n" + restoredChild);
     }

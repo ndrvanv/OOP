@@ -1,26 +1,28 @@
 package seminar.seminarOne;
 
 public class GetInfo {
-    private Human human;
+    private Parents mother;
+    private Parents father;
+    private Children children;
     public String getInfoMother() {
-        if(human.getMother() != null) {
-            return human.getMother().getFirstName();
+        if(mother.getMother() != null) {
+            return mother.getMother();
         }
         return "no name";
     }
     public String getInfoFather() {
-        if(human.getFather() != null) {
-            return human.getFather().getFirstName();
+        if(father.getFather() != null) {
+            return father.getFather();
         }
         return "no name";
     }
     public String getInfoChild() {
         StringBuilder str = new StringBuilder();
-        if(human.getChildren().size() != 0) {
-            str.append(human.getChildren().get(0).getFirstName());
-            for (int i = 1; i < human.getChildren().size(); i++) {
+        if(children.getChildren().size() != 0) {
+            str.append(children.getChildren().get(0).getFirstName());
+            for (int i = 1; i < children.getChildren().size(); i++) {
                 str.append(",");
-                str.append(human.getChildren().get(i).getFirstName());
+                str.append(children.getChildren().get(i).getFirstName());
             }
         }
         else {
