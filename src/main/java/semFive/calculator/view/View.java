@@ -1,6 +1,6 @@
 package semFive.calculator.view;
 
-import semFive.modele.Complex;
+import semFive.calculator.modele.Complex;
 
 import java.util.Scanner;
 

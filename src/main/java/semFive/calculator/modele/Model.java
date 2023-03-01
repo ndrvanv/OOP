@@ -1,4 +1,4 @@
-package semFive.modele;
+package semFive.calculator.modele;
 
 public interface Model<T> {
     T sum();

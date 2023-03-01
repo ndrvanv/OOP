@@ -2,8 +2,7 @@ package semFive.calculator;
 
 import semFive.calculator.presenter.Presenter;
 import semFive.calculator.view.View;
-import semFive.modele.ComplexCalculator;
-import semFive.modele.RatioCalculator;
+import semFive.calculator.modele.RatioCalculator;
 
 public class Main {
     public static void main(String[] args) {

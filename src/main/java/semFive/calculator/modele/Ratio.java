@@ -1,4 +1,4 @@
-package semFive.modele;
+package semFive.calculator.modele;
 
 public class Ratio extends SetDigits{
     public Ratio(double a, double b) {

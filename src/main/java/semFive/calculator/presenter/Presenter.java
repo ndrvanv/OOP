@@ -1,8 +1,8 @@
 package semFive.calculator.presenter;
 
 import semFive.calculator.view.View;
-import semFive.modele.ComplexCalculator;
-import semFive.modele.RatioCalculator;
+import semFive.calculator.modele.ComplexCalculator;
+import semFive.calculator.modele.RatioCalculator;
 
 public class Presenter {
     View view;

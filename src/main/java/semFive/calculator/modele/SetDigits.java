@@ -1,4 +1,4 @@
-package semFive.modele;
+package semFive.calculator.modele;
 
 public class SetDigits {
     protected double x;

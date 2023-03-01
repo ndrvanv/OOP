@@ -1,4 +1,4 @@
-package semFive.modele;
+package semFive.calculator.modele;
 
 public class ComplexCalculator extends SetDigits implements Model<Complex> {
 
