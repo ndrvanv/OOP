@@ -9,9 +9,7 @@ public class Main {
 //        Logger.logData(" Hello world");
 //        ComplexCalculator calculator = new ComplexCalculator();
 //        System.out.println((calculator.difference()));
-        var v = new View();
-        var r = new RatioCalculator();
-        Presenter presenter = new Presenter(v, r);
+        Presenter presenter = new Presenter(new View(), new RatioCalculator());
         presenter.menuCalculator();
     }
 }

@@ -1,8 +1,6 @@
 package schedular;
 
-import seminar.seminarOne.Parents;
-
-import java.util.Date;
+import schedular.presenter.MenuHW4;
 
 //С учетом информации полученной ранее знакомимся с параметрическим полиморфизмом и продолжаем погружаться в ООП.
 //Спроектировать и реализовать планировщик дел для работы с задачами разных приоритетов.
@@ -15,10 +13,17 @@ import java.util.Date;
 //данные хранятся в файле csv/jsom/xml
 //другие компоненты
 public class Main {
+    private static final String MENU = "Выберите действие что хотели бы сделать" +
+            "\n1)\tПоказать все имеющиеся заметки: " +
+            "\n2)\tДобавить заметки: " +
+            "\n3)\t";
+
     public static void main(String[] args) {
-//        MenuHW4.showShedules();
-//        MenuHW4.addNewSchedule();
         MenuHW4.showShedules();
+        MenuHW4.addNewSchedule();
+        MenuHW4.showShedules();
+    }
+    public static void start() {
 
     }
 }

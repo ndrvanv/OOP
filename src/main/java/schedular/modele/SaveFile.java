@@ -1,4 +1,4 @@
-package schedular;
+package schedular.modele;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;

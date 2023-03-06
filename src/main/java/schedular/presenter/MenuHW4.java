@@ -1,17 +1,17 @@
-package schedular;
+package schedular.presenter;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
+import schedular.Schedule;
+import schedular.modele.AddNotes;
+import schedular.modele.Priority;
+import schedular.modele.ReadFile;
+import schedular.modele.SaveFile;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Scanner;
 
-import static java.util.Locale.ENGLISH;
-
-public class MenuHW4 {
+public class MenuHW4{
     private static final String path = "C:\\Users\\1311103\\OneDrive\\Рабочий стол\\GB\\OOP\\src\\main\\java\\schedular\\plans.txt";
     private static Scanner scanner = new Scanner(System.in);
     private static int id = 4;
@@ -29,7 +29,7 @@ public class MenuHW4 {
 
     }
     public static void showShedules() {
-//        startWork();
+        startWork();
         AddNotes<Schedule> scheduleAddNotes = ReadFile.initFromFile(path);
         scheduleAddNotes.showShedules();
     }
@@ -38,7 +38,7 @@ public class MenuHW4 {
         showShedules();
         System.out.println("Введите номер задачи, которую хотите удалить: ");
         int num = scanner.nextInt();
-        scheduleAddNotes.removeSchedule(scheduleAddNotes.getSchedals().get(num - 1));
+        scheduleAddNotes.removeSchedule(scheduleAddNotes.getScheduls().get(num - 1));
         System.out.println("Задача успешно удалена с плана");
         SaveFile.saveFile(scheduleAddNotes, path);
         id--;
@@ -57,8 +57,8 @@ public class MenuHW4 {
             System.out.println("Извините но задача должна быть поставлена раньше чем сам дедлайн");
             changePriority();
         }else {
-            for(int i = 0; i < addNotes.getSchedals().size(); i++) {
-                if((addNotes.getSchedals().get(i).getStartTime().isBefore(start)) && addNotes.getSchedals().get(i).getDeadLine().isAfter(deadLine)) {
+            for(int i = 0; i < addNotes.getScheduls().size(); i++) {
+                if((addNotes.getScheduls().get(i).getStartTime().isBefore(start)) && addNotes.getScheduls().get(i).getDeadLine().isAfter(deadLine)) {
                     System.out.println("Эта задача стоит в плане"); //TODO add details
                 }
             }
@@ -84,16 +84,16 @@ public class MenuHW4 {
         showShedules();
     }
     private static void changeDeadline(int num, AddNotes<Schedule> addNotes) {
-        addNotes.changeDeadline(addNotes.getSchedals().get(num), createDate("Установите новую дату и время дедлайна: "));
+        addNotes.changeDeadline(addNotes.getScheduls().get(num), createDate("Установите новую дату и время дедлайна: "));
     }
     private static void changeDateStart(int num, AddNotes<Schedule> addNotes) {
-        addNotes.changeDateStart(addNotes.getSchedals().get(num), createDate("Установите новую дату и время: "));
+        addNotes.changeDateStart(addNotes.getScheduls().get(num), createDate("Установите новую дату и время: "));
     }
     private static void changePriority(int num, AddNotes<Schedule> addNotes) {
-        addNotes.changePriority(addNotes.getSchedals().get(num), changePriority());
+        addNotes.changePriority(addNotes.getScheduls().get(num), changePriority());
     }
     private static void changeNotes(int num, AddNotes<Schedule> addNotes, String text) {
-        addNotes.changeNotes(addNotes.getSchedals().get(num), text);
+        addNotes.changeNotes(addNotes.getScheduls().get(num), text);
     }
     private static LocalDateTime createDate(String str) {
         System.out.println(str);

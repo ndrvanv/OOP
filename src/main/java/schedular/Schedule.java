@@ -1,12 +1,11 @@
 package schedular;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import schedular.modele.Priority;
 
-public class Schedule {
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+public class Schedule implements Serializable {
     private int id;
     private String nameUser;
     private String notes;

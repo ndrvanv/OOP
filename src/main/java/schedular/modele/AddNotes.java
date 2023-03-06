@@ -1,36 +1,35 @@
-package schedular;
+package schedular.modele;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import schedular.Schedule;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class AddNotes<T extends Schedule> {
+public class AddNotes<T extends Schedule> implements Serializable {
 
-    private ArrayList<T> schedals;
+    private ArrayList<T> scheduls;
 
     public AddNotes() {
-        this.schedals = new ArrayList<>();
+        this.scheduls = new ArrayList<>();
     }
 
-    public ArrayList<T> getSchedals() {
-        return schedals;
+    public ArrayList<T> getScheduls() {
+        return scheduls;
     }
     public void showShedules() {
         int i = 1;
-        for(Schedule sch : schedals) {
+        for(Schedule sch : scheduls) {
             System.out.println("\n№\t " + i + " " + sch);
             i++;
         }
     }
 
     public void addSchedule(T schedule) {
-        this.schedals.add(schedule);
+        this.scheduls.add(schedule);
     }
     public void removeSchedule(T schedule) {
-        this.schedals.remove(schedule);
+        this.scheduls.remove(schedule);
     }
 
     public void changeNotes(T schedule, String notes) {
@@ -45,5 +44,6 @@ public class AddNotes<T extends Schedule> {
     public void changeDateStart(T schedule, LocalDateTime startTime) {
         schedule.setStartTime(startTime);
     }
+
 
 }
