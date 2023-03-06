@@ -1,4 +1,4 @@
-package schedular;
+package schedular.modele;
 
 import schedular.modele.Priority;
 

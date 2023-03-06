@@ -1,7 +1,7 @@
 package schedular.presenter;
 
 
-import schedular.Schedule;
+import schedular.modele.Schedule;
 import schedular.modele.AddNotes;
 import schedular.modele.Priority;
 import schedular.modele.ReadFile;
@@ -11,28 +11,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class MenuHW4{
+public class MenuHW4 {
     private static final String path = "C:\\Users\\1311103\\OneDrive\\Рабочий стол\\GB\\OOP\\src\\main\\java\\schedular\\plans.txt";
     private static Scanner scanner = new Scanner(System.in);
     private static int id = 4;
 
-    public static void startWork() {
-    AddNotes<Schedule> scheduleAddNotes = new AddNotes();
 
-    scheduleAddNotes.addSchedule(new Schedule(1, "Кот Петрович", "Накормить рыбу", LocalDateTime.of(23, 02, 26, 16, 10, 20),
-             LocalDateTime.of(2023, 03, 10, 14, 05), Priority.IMMIDIATE));
-    scheduleAddNotes.addSchedule(new Schedule(2,"Кот Матроскин", "Сделать домашку", LocalDateTime.of(2023, 02, 20, 12, 20, 20),
-            LocalDateTime.of(2023, 03, 05, 10, 05), Priority.MIDDLE));
-    scheduleAddNotes.addSchedule(new Schedule(3, "Кот Наплакал", "Посмотреть лекцию Камянецкого", LocalDateTime.of(23, 02, 25, 12, 00),
-            LocalDateTime.of(23, 02, 25, 19, 00), Priority.LOW));
-    SaveFile.saveFile(scheduleAddNotes, path);
-
-    }
     public static void showShedules() {
-        startWork();
         AddNotes<Schedule> scheduleAddNotes = ReadFile.initFromFile(path);
         scheduleAddNotes.showShedules();
     }
+
     public static void removeSchedule() {
         AddNotes<Schedule> scheduleAddNotes = ReadFile.initFromFile(path);
         showShedules();
@@ -44,6 +33,7 @@ public class MenuHW4{
         id--;
         showShedules();
     }
+
     public static void addNewSchedule() {
         AddNotes<Schedule> addNotes = ReadFile.initFromFile(path);
         Priority priority = changePriority();
@@ -56,9 +46,9 @@ public class MenuHW4{
         if (start.isAfter(deadLine)) {
             System.out.println("Извините но задача должна быть поставлена раньше чем сам дедлайн");
             changePriority();
-        }else {
-            for(int i = 0; i < addNotes.getScheduls().size(); i++) {
-                if((addNotes.getScheduls().get(i).getStartTime().isBefore(start)) && addNotes.getScheduls().get(i).getDeadLine().isAfter(deadLine)) {
+        } else {
+            for (int i = 0; i < addNotes.getScheduls().size(); i++) {
+                if ((addNotes.getScheduls().get(i).getStartTime().isBefore(start)) && addNotes.getScheduls().get(i).getDeadLine().isAfter(deadLine)) {
                     System.out.println("Эта задача стоит в плане"); //TODO add details
                 }
             }
@@ -66,6 +56,7 @@ public class MenuHW4{
             id++;
         }
     }
+
     public static void changeSchedule() {
         AddNotes<Schedule> addNotes = ReadFile.initFromFile(path);
         showShedules();
@@ -83,18 +74,9 @@ public class MenuHW4{
         SaveFile.saveFile(addNotes, path);
         showShedules();
     }
-    private static void changeDeadline(int num, AddNotes<Schedule> addNotes) {
-        addNotes.changeDeadline(addNotes.getScheduls().get(num), createDate("Установите новую дату и время дедлайна: "));
-    }
-    private static void changeDateStart(int num, AddNotes<Schedule> addNotes) {
-        addNotes.changeDateStart(addNotes.getScheduls().get(num), createDate("Установите новую дату и время: "));
-    }
-    private static void changePriority(int num, AddNotes<Schedule> addNotes) {
-        addNotes.changePriority(addNotes.getScheduls().get(num), changePriority());
-    }
-    private static void changeNotes(int num, AddNotes<Schedule> addNotes, String text) {
-        addNotes.changeNotes(addNotes.getScheduls().get(num), text);
-    }
+
+
+
     private static LocalDateTime createDate(String str) {
         System.out.println(str);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
@@ -107,24 +89,21 @@ public class MenuHW4{
         System.out.print(formatter.format(dt));
         return dt;
     }
+
     private static Priority changePriority() {
         System.out.println("Выберите приоритет \n\t1) Низкий\n\t2) Средний \n\t3) Срочный");
         int num = scanner.nextInt();
         if (num == 1) {
             return Priority.LOW;
-        }
-        else if (num == 2) {
+        } else if (num == 2) {
             return Priority.MIDDLE;
-        }
-        else if (num == 3) {
+        } else if (num == 3) {
             return Priority.IMMIDIATE;
-        }
-        else {
+        } else {
             System.out.println("Нет такого из вариантов");
         }
         return Priority.IMMIDIATE;
     }
-
-
-
 }
+
+
